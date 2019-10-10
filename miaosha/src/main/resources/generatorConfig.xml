@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--<properties resource="D:\Project\PandaStore\ps-parent\ps-mybatisGenerator\src\main\resources\generator.properties"/>-->
+    <!--导入属性配置-->
+    <properties resource="generator.properties"></properties>
+    <!-- 配置mysql 驱动jar包路径.用了绝对路径 在你的maven工程里面找到你用数据库的版本 复制绝对路径-->
+    <classPathEntry location="${jdbc.driverLocation}" />
+    <context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <!--分隔符-->
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!-- 一些工具 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+
+        <commentGenerator>
+            <!-- 取消时间戳 -->
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="false"/>
+        </commentGenerator>
+
+        <!-- 数据库连接 参数 -->
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.userId}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <!-- This property is used to specify whether MyBatis Generator should
+               force the use of java.math.BigDecimal for DECIMAL and NUMERIC fields, -->
+            <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+         NUMERIC 类型解析为java.math.BigDecimal -->
+            <!--非必须，类型处理器，在数据库类型和Java类型之间的转化控制-->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 数据表对应的model层  -->
+        <!--targetPackage   指定生成的model生成所在的包名
+            targetProject   指定在该项目所在的路径|指定生成到的工程名称
+            "D:\Project\PandaStore\ps-parent\ps-exterface\src\main\java
+        -->
+        <javaModelGenerator targetPackage="com.miaoshaobject.dataobject"
+                            targetProject="src\main\java">
+            <!--是否允许子包，即targetPackage、schemaName、tableName-->
+            <property name="enableSubPackages" value="false"/>
+            <!--是否为model添加 构造函数 true添加，false不添加-->
+            <property name=" constructBased" value="false"></property>
+            <!-- 是否对数据库查询结果进行trim操作 -->
+            <property name="trimStrings" value="true"/>
+            <!--建立的model对象是否 不可改变 即生成的model对象 不会有setter方法-->
+            <property name="immutable" value="false"></property>
+        </javaModelGenerator>
+
+        <!-- sql mapper 映射配置文件 为每一个数据库的表生成对应的SqlMap文件-->
+        <sqlMapGenerator targetPackage="mapping"
+                         targetProject="src\main\resources">
+            <!--是否允许子包，即targetPackage、schemaName、tableName-->
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- 客户端代码，生成易于使用的针对Model对象和Xml配置文件的代码
+            type="ANNOTATEDMAPPER"，生成Java Model 和基于注释的Mapper对象
+            type="MIXEDMAPPER"，生成基于注释的Java Model 和相应的Mapper对象
+            type="XMLMAPPER"，生成SQLMap Xml文件和独立的Mapper接口
+         -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.miaoshaobject.dao"
+                             targetProject="src\main\java">
+            <!--是否允许子包，即targetPackage、schemaName、tableName-->
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 数据表进行生成操作 schema:相当于库名; tableName:表名;
+            domainObjectName:对应的实体类名 -->
+
+        <table schema="seckill" tableName="user_info" domainObjectName="UserInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table schema="seckill" tableName="user_password" domainObjectName="UserPassword"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+    </context>
+</generatorConfiguration>
