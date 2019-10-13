@@ -4,6 +4,5 @@
 *.cmd
 *.class
 /mvnw
-/dbblog-core/src/main/resources/application-prod.yml
 rebel.xml
 target/
