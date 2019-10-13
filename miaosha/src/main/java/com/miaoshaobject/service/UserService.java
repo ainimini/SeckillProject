@@ -1,5 +1,6 @@
 package com.miaoshaobject.service;
 
+import com.miaoshaobject.error.BusinssException;
 import com.miaoshaobject.service.model.UserModel;
 
 /**
@@ -16,4 +17,19 @@ public interface UserService {
      * @return
      */
     UserModel getUserName(Integer id);
+
+    /**
+     * 注册
+     * @param userModel
+     */
+    void register(UserModel userModel) throws BusinssException;
+
+    /**
+     * 登录
+     * telphone 用户手机号
+     * passowrd 加密后的密码
+     * @param telphone
+     * @param encrptPassowrd
+     */
+    UserModel validateLogin(String telphone,String encrptPassowrd) throws BusinssException;
 }

@@ -20,6 +20,9 @@ import java.util.Map;
  * @Version 1.0
  **/
 public class BaseController {
+
+public static final String CONTENT_TYPE_FORMED = "application/x-www-form-urlencoded";
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
