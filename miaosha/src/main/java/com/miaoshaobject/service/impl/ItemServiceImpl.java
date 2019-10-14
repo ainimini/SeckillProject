@@ -10,16 +10,14 @@ import com.miaoshaobject.service.ItemService;
 import com.miaoshaobject.service.model.ItemModel;
 import com.miaoshaobject.validator.ValidationResult;
 import com.miaoshaobject.validator.ValidatorImpl;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.xml.bind.PrintConversionEvent;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName dell
@@ -38,7 +36,12 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemStockMapper itemStockMapper;
 
-
+    /**
+     * 创建商品
+     * @param itemModel
+     * @return
+     * @throws BusinssException
+     */
     @Override
     @Transactional
     public ItemModel createItem(ItemModel itemModel) throws BusinssException {
@@ -60,10 +63,20 @@ public class ItemServiceImpl implements ItemService {
         return this.getItemById(itemModel.getId());
     }
 
+    /**
+     * 商品列表
+     * @return
+     */
     @Override
     public List<ItemModel> listModel() {
+        List<Item> itemList = itemMapper.listItem();
+       List<ItemModel> itemModelList = itemList.stream().map(item -> {
+            ItemStock itemStock = itemStockMapper.selectByItemId(item.getId());
+            ItemModel itemModel = this.converModelFromDataObject(item, itemStock);
+            return itemModel;
+        }).collect(Collectors.toList());
 
-        return null;
+        return itemModelList;
     }
 
     @Override
@@ -76,7 +89,7 @@ public class ItemServiceImpl implements ItemService {
         ItemStock itemStock = itemStockMapper.selectByItemId(item.getId());
 
         //将dataobjec转化为model
-        ItemModel itemModel = converModelDataObject(item,itemStock);
+        ItemModel itemModel = converModelFromDataObject(item,itemStock);
         return itemModel;
     }
 
@@ -97,11 +110,11 @@ public class ItemServiceImpl implements ItemService {
         }
         ItemStock itemStock = new ItemStock();
         itemStock.setItemId(itemModel.getId());
-        itemModel.setStock(itemStock.getStock());
+        itemStock.setStock(itemModel.getStock());
         return itemStock;
     }
 
-    private ItemModel converModelDataObject(Item item,ItemStock itemStock){
+    private ItemModel converModelFromDataObject(Item item,ItemStock itemStock){
         ItemModel itemModel = new ItemModel();
         BeanUtils.copyProperties(item,itemModel);
         itemModel.setPrice(new BigDecimal(item.getPrice()));

@@ -11,7 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.relation.RelationNotFoundException;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName dell
@@ -30,6 +34,7 @@ public class ItemController extends BaseController {
 
     /**
      * 创建商品
+     *
      * @param title
      * @param description
      * @param price
@@ -57,6 +62,39 @@ public class ItemController extends BaseController {
         return CommonReturnType.create(itemVo);
     }
 
+    /**
+     * 商品详情页浏览
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/getItem", method = {RequestMethod.GET})
+    @ResponseBody
+
+    public CommonReturnType getItem(@RequestParam(name = "id") Integer id) {
+        ItemModel itemModel = itemService.getItemById(id);
+        ItemVo itemVo = convertVoFromItemModel(itemModel);
+        return CommonReturnType.create(itemVo);
+    }
+
+    /**
+     * 商品列表页浏览
+     * @return
+     */
+    @RequestMapping(value = "/listItem", method = {RequestMethod.GET})
+    @ResponseBody
+
+    public CommonReturnType listItem() {
+        List<ItemModel> itemModelList = itemService.listModel();
+
+        //使用stream api将list内的itemModel转化为itemVo
+        List<ItemVo> itemVoList = itemModelList.stream().map(itemModel -> {
+            ItemVo itemVo = this.convertVoFromItemModel(itemModel);
+            return itemVo;
+        }).collect(Collectors.toList());
+        return CommonReturnType.create(itemVoList);
+    }
+
     private ItemVo convertVoFromItemModel(ItemModel itemModel) {
         if (null == itemModel) {
             return null;
@@ -65,4 +103,5 @@ public class ItemController extends BaseController {
         BeanUtils.copyProperties(itemModel, itemVo);
         return itemVo;
     }
+
 }

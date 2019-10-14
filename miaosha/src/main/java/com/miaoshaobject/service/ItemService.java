@@ -16,11 +16,11 @@ public interface ItemService {
 
     /**
      * 创建商品
-     *
-     * @param inteModel
+     * @param itemModel
      * @return
+     * @throws BusinssException
      */
-    ItemModel createItem(ItemModel inteModel) throws BusinssException;
+    ItemModel createItem(ItemModel itemModel) throws BusinssException;
 
     /**
      * 商品列表浏览
