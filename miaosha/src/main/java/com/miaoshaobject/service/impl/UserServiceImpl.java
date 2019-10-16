@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public UserModel getUserName(Integer id) {
+    public UserModel getUserById(Integer id) {
         //调用userInfoMapper获取对应的用户dataobject
         UserInfo userInfo = userInfoMapper.selectByPrimaryKey(id);
         if (null == userInfo) {

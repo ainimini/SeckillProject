@@ -3,7 +3,7 @@ package com.miaoshaobject.service.model;
 import javax.validation.constraints.*;
 
 /**
- * @ClassName dell
+ * @ClassName 用户模型
  * @Description TOOD
  * @Author X
  * @Data 2019/10/10

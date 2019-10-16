@@ -164,7 +164,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public CommonReturnType getUser(@RequestParam(name = "id") Integer id) throws BusinssException {
         //调用service服务器获取id的用户对象并返回给前端
-        UserModel userModel = userService.getUserName(id);
+        UserModel userModel = userService.getUserById(id);
 
         //若获取的用户的信息不存在
         if (null == userModel) {

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
- * @ClassName dell
+ * @ClassName 商品模型
  * @Description TOOD
  * @Author X
  * @Data 2019/10/13

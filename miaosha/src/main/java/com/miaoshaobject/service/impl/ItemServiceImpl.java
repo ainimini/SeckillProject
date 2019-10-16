@@ -79,6 +79,11 @@ public class ItemServiceImpl implements ItemService {
         return itemModelList;
     }
 
+    /**
+     * 得到商品id
+     * @param id
+     * @return
+     */
     @Override
     public ItemModel getItemById(Integer id) {
         Item item = itemMapper.selectByPrimaryKey(id);
@@ -93,6 +98,25 @@ public class ItemServiceImpl implements ItemService {
         return itemModel;
     }
 
+    /**
+     * 减商品库存
+     * @param itemId
+     * @param amount
+     * @return
+     * @throws BusinssException
+     */
+    @Override
+    @Transactional
+    public boolean decreaseStock(Integer itemId, Integer amount){
+        int affectedRow = itemStockMapper.decreaseStock(itemId, amount);
+        if (affectedRow>0){
+            //更新库存成功
+            return true;
+        }else {
+            //更新库存失败
+            return false;
+        }
+    }
 
     private Item converItemFromItemModel(ItemModel itemModel) {
         if (null == itemModel) {

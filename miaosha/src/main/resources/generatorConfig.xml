@@ -84,7 +84,7 @@
         <!-- 数据表进行生成操作 schema:相当于库名; tableName:表名;
             domainObjectName:对应的实体类名 -->
 
-        <table schema="seckill" tableName="user_info" domainObjectName="UserInfo"
+        <!--<table schema="seckill" tableName="user_info" domainObjectName="UserInfo"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
@@ -104,5 +104,15 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
+        <table schema="seckill" tableName="order_info" domainObjectName="OrderInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table schema="seckill" tableName="sequence_info" domainObjectName="SequenceInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
     </context>
 </generatorConfiguration>

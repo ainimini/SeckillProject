@@ -16,7 +16,7 @@ public interface UserService {
      * @param id
      * @return
      */
-    UserModel getUserName(Integer id);
+    UserModel getUserById(Integer id);
 
     /**
      * 注册
@@ -32,4 +32,5 @@ public interface UserService {
      * @param encrptPassowrd
      */
     UserModel validateLogin(String telphone,String encrptPassowrd) throws BusinssException;
+
 }

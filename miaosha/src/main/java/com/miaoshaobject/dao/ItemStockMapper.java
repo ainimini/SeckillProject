@@ -1,6 +1,7 @@
 package com.miaoshaobject.dao;
 
 import com.miaoshaobject.dataobject.ItemStock;
+import org.apache.ibatis.annotations.Param;
 
 public interface ItemStockMapper {
     /**
@@ -52,4 +53,12 @@ public interface ItemStockMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(ItemStock record);
+
+    /**
+     * 减库存
+     * @param itemId
+     * @param amount
+     * @return
+     */
+    int decreaseStock(@Param("itemId") Integer itemId, @Param("amount") Integer amount);
 }
